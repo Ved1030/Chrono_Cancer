@@ -38,37 +38,52 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
     ),
   ];
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _roleController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.grey[100],
-        appBar: AppBar(
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: Colors.grey[50],
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
-          elevation: 0,
-          leading: const Icon(Icons.home_outlined, color: Colors.deepPurple),
+          elevation: 1,
+          titleTextStyle: TextStyle(
+            color: Colors.black87,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(color: Colors.deepPurple),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.deepPurple,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(foregroundColor: Colors.deepPurple),
+        ),
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          leading: const Icon(Icons.home_outlined),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Family Cancer Intelligence',
-                style: TextStyle(
-                  color: Colors.grey[800],
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).appBarTheme.titleTextStyle,
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: 4),
               Text(
                 'Track hereditary patterns & community risk factors',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontSize: 12,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.grey[600],
+                    ),
               ),
             ],
           ),
@@ -76,24 +91,35 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/transparent_default_user.png'),
+                backgroundImage: const AssetImage('assets/images/transparent_default_user.png'),
+                backgroundColor: Colors.deepPurple.shade200,
+                child: const Icon(Icons.person, color: Colors.white),
               ),
             ),
           ],
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                _buildSectionTitle('Family Cancer History', 'Track genetic lineage and health status of family members.'),
+                const SizedBox(height: 16),
                 _buildFamilyCancerTreeCard(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 32),
+                _buildSectionTitle('Hereditary Risk Assessment', 'Understand your personalized cancer risk based on family patterns.'),
+                const SizedBox(height: 16),
                 _buildHereditaryRiskCard(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 32),
+                _buildSectionTitle('Environmental Insights', 'Identify cancer risk factors in your local environment.'),
+                const SizedBox(height: 16),
                 _buildEnvironmentalCancerHotspots(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 32),
+                _buildSectionTitle('Prevention Impact', 'See the positive outcomes of proactive health management.'),
+                const SizedBox(height: 16),
                 _buildPreventionImpactCard(),
+                const SizedBox(height: 24),
               ],
             ),
           ),
@@ -102,13 +128,45 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
     );
   }
 
-  // Section 1: Family Cancer Tree (genetic lineage tracking)
+  Widget _buildSectionTitle(String title, String subtitle) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          subtitle,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Colors.grey[600],
+              ),
+        ),
+      ],
+    );
+  }
+
+  // -------------------- Section 1 --------------------
   Widget _buildFamilyCancerTreeCard() {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.15),
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -117,59 +175,57 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.account_tree, color: Colors.deepPurple),
-                    const SizedBox(width: 8),
+                    const Icon(Icons.account_tree, color: Colors.deepPurple, size: 24),
+                    const SizedBox(width: 10),
                     Text(
                       'Family Cancer History',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[800],
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800],
+                          ),
                     ),
                   ],
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: Colors.deepPurple[50],
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     '${familyMembers.length} tracked',
-                    style: TextStyle(color: Colors.deepPurple[700], fontSize: 12),
+                    style: TextStyle(color: Colors.deepPurple[700], fontSize: 13, fontWeight: FontWeight.w500),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             ..._buildFamilyMemberList(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: _showAddFamilyMemberDialog,
               icon: const Icon(Icons.add),
               label: const Text('Add Family Member'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.orange[50],
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.orange[200]!),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.warning_amber, color: Colors.orange[700]),
-                  const SizedBox(width: 10),
+                  Icon(Icons.warning_amber, color: Colors.orange[700], size: 24),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       '2 family members with breast cancer history detected - genetic screening recommended',
-                      style: TextStyle(color: Colors.orange[800], fontSize: 13),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.orange[800],
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                   ),
                 ],
@@ -181,55 +237,147 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
     );
   }
 
-  // Section 2: Hereditary Risk Assessment (UNIQUE VALUE)
+  List<Widget> _buildFamilyMemberList() {
+    List<Widget> widgets = [];
+    for (int i = 0; i < familyMembers.length; i++) {
+      widgets.add(_buildFamilyMemberTile(member: familyMembers[i]));
+      if (i != familyMembers.length - 1) {
+        widgets.add(const Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.0),
+          child: Divider(height: 1, thickness: 1.0, color: Colors.grey),
+        ));
+      }
+    }
+    return widgets;
+  }
+
+  Widget _buildFamilyMemberTile({required FamilyMember member}) {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 24,
+          backgroundColor: member.initialsColor,
+          child: Text(
+            member.initials,
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                member.name,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                    ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                member.role,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey[600],
+                    ),
+              ),
+            ],
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: member.statusColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                member.status,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: member.statusColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Last scan: ${member.lastReport}',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Colors.grey[500],
+                  ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // -------------------- Section 2 --------------------
   Widget _buildHereditaryRiskCard() {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.15),
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                const Icon(Icons.biotech, color: Colors.red),
-                const SizedBox(width: 8),
+                const Icon(Icons.biotech, color: Colors.red, size: 24),
+                const SizedBox(width: 10),
                 Text(
                   'Your Hereditary Cancer Risk',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[800],
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
                 ),
               ],
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             _buildRiskRow('Breast Cancer', 'High', 0.65, Colors.red, '2 maternal cases'),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             _buildRiskRow('Colon Cancer', 'Medium', 0.35, Colors.orange, '1 paternal case'),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             _buildRiskRow('Lung Cancer', 'Low', 0.15, Colors.green, 'No family history'),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             _buildRiskRow('Prostate Cancer', 'Medium', 0.40, Colors.orange, '1 case detected'),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Colors.blue[50]!, Colors.blue[100]!],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.blue[200]!),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.insights, color: Colors.blue[700]),
-                  const SizedBox(width: 10),
+                  Icon(Icons.insights, color: Colors.blue[700], size: 24),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       'AI recommends BRCA1/BRCA2 genetic test based on family pattern',
-                      style: TextStyle(color: Colors.blue[900], fontSize: 13, fontWeight: FontWeight.w500),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.blue[900],
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                   ),
                 ],
@@ -248,92 +396,119 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(cancer, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+            Text(cancer, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600)),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                color: color.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: Text(level, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.bold)),
+              child: Text(level, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: color, fontWeight: FontWeight.bold)),
             ),
           ],
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 8),
         LinearProgressIndicator(
           value: value,
           valueColor: AlwaysStoppedAnimation<Color>(color),
           backgroundColor: color.withOpacity(0.2),
-          minHeight: 6,
+          minHeight: 8,
+          borderRadius: BorderRadius.circular(4),
         ),
-        const SizedBox(height: 4),
-        Text(reason, style: TextStyle(color: Colors.grey[600], fontSize: 11)),
+        const SizedBox(height: 6),
+        Text(reason, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600])),
       ],
     );
   }
 
-  // Section 3: Environmental Cancer Hotspots (UNIQUE VALUE)
+  // -------------------- Section 3 --------------------
   Widget _buildEnvironmentalCancerHotspots() {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.15),
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                const Icon(Icons.map, color: Colors.deepOrange),
-                const SizedBox(width: 8),
+                const Icon(Icons.map, color: Colors.deepOrange, size: 24),
+                const SizedBox(width: 10),
                 Text(
                   'Environmental Cancer Hotspots',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[800],
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
                 ),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             Text(
               'Areas with elevated cancer incidence near you',
-              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             Container(
-              height: 140,
+              height: 180,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(12),
                 image: const DecorationImage(
                   image: NetworkImage('https://i.ibb.co/3kX93G1/OIG-2.png'),
                   fit: BoxFit.cover,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             _buildHotspotRow('Industrial Zone East', 'Lung cancer: 2.3x avg', Colors.red, '342 cases/yr', '8 hospitals'),
-            const Divider(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              child: Divider(height: 1, thickness: 1.0, color: Colors.grey),
+            ),
             _buildHotspotRow('Downtown Metro', 'Breast cancer: 1.8x avg', Colors.orange, '156 cases/yr', '5 hospitals'),
-            const Divider(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              child: Divider(height: 1, thickness: 1.0, color: Colors.grey),
+            ),
             _buildHotspotRow('Suburban West', 'Colon cancer: 1.4x avg', Colors.orange, '89 cases/yr', '3 hospitals'),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.red[50],
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.red[200]!),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.warning, color: Colors.red[700]),
-                  const SizedBox(width: 10),
+                  Icon(Icons.warning, color: Colors.red[700], size: 24),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       'You live 3km from Industrial Zone East - consider quarterly lung screenings',
-                      style: TextStyle(color: Colors.red[900], fontSize: 13),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                   ),
                 ],
@@ -349,31 +524,31 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
     return Row(
       children: [
         Container(
-          width: 8,
-          height: 50,
+          width: 10,
+          height: 60,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: 16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(area, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-              const SizedBox(height: 4),
-              Text(stats, style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 4),
+              Text(area, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 6),
+              Text(stats, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: color, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 6),
               Row(
                 children: [
-                  Icon(Icons.people_outline, size: 12, color: Colors.grey[600]),
-                  const SizedBox(width: 4),
-                  Text(cases, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
-                  const SizedBox(width: 12),
-                  Icon(Icons.local_hospital, size: 12, color: Colors.grey[600]),
-                  const SizedBox(width: 4),
-                  Text(hospitals, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+                  Icon(Icons.people_outline, size: 14, color: Colors.grey[600]),
+                  const SizedBox(width: 6),
+                  Text(cases, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600])),
+                  const SizedBox(width: 16),
+                  Icon(Icons.local_hospital, size: 14, color: Colors.grey[600]),
+                  const SizedBox(width: 6),
+                  Text(hospitals, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600])),
                 ],
               ),
             ],
@@ -383,102 +558,104 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
     );
   }
 
-  // Section 4: Prevention Impact Metrics (UNIQUE VALUE)
+  // -------------------- Section 4 --------------------
   Widget _buildPreventionImpactCard() {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.green[400]!, Colors.green[600]!],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(15),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.green[400]!, Colors.green[600]!],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Icon(Icons.shield_outlined, color: Colors.white, size: 24),
-                  ),
-                  const SizedBox(width: 12),
-                  const Text(
-                    'Community Impact',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildImpactStat('1,847', 'Early\nDetections', Icons.search),
-                  _buildImpactStat('92%', 'Survival\nRate', Icons.favorite),
-                  _buildImpactStat('6mo', 'Avg Time\nSaved', Icons.schedule),
-                ],
-              ),
-              const SizedBox(height: 15),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Your Impact This Year',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(Icons.check_circle, color: Colors.white, size: 16),
-                        const SizedBox(width: 6),
-                        Text('3 family members screened', style: TextStyle(color: Colors.white, fontSize: 12)),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(Icons.check_circle, color: Colors.white, size: 16),
-                        const SizedBox(width: 6),
-                        Text('1 polyp detected and removed early', style: TextStyle(color: Colors.white, fontSize: 12)),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(Icons.check_circle, color: Colors.white, size: 16),
-                        const SizedBox(width: 6),
-                        Text('Prevented potential Stage 3 diagnosis', style: TextStyle(color: Colors.white, fontSize: 12)),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.15),
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: const Offset(0, 3),
           ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.25),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(Icons.shield_outlined, color: Colors.white, size: 28),
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  'Community Impact',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildImpactStat('1,847', 'Early\nDetections', Icons.search),
+                _buildImpactStat('92%', 'Survival\nRate', Icons.favorite),
+                _buildImpactStat('6mo', 'Avg Time\nSaved', Icons.schedule),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.25),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Your Impact This Year',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Icon(Icons.check_circle, color: Colors.white, size: 18),
+                      const SizedBox(width: 8),
+                      Text('3 family members screened', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      const Icon(Icons.check_circle, color: Colors.white, size: 18),
+                      const SizedBox(width: 8),
+                      Text('1 polyp detected,removed early', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      const Icon(Icons.check_circle, color: Colors.white, size: 18),
+                      const SizedBox(width: 8),
+                      Text('Prevented Stage 3 diagnosis', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -487,12 +664,11 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
   Widget _buildImpactStat(String value, String label, IconData icon) {
     return Column(
       children: [
-        Icon(icon, color: Colors.white, size: 28),
-        const SizedBox(height: 8),
+        Icon(icon, color: Colors.white, size: 36),
+        const SizedBox(height: 10),
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 24,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -500,85 +676,17 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
         Text(
           label,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Colors.white.withOpacity(0.9),
-            fontSize: 11,
           ),
-        ),
-      ],
-    );
-  }
-
-  List<Widget> _buildFamilyMemberList() {
-    List<Widget> widgets = [];
-    for (int i = 0; i < familyMembers.length; i++) {
-      widgets.add(_buildFamilyMemberTile(member: familyMembers[i]));
-      if (i != familyMembers.length - 1) {
-        widgets.add(const Divider(height: 20));
-      }
-    }
-    return widgets;
-  }
-
-  Widget _buildFamilyMemberTile({required FamilyMember member}) {
-    return Row(
-      children: [
-        CircleAvatar(
-          backgroundColor: member.initialsColor,
-          child: Text(
-            member.initials,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ),
-        const SizedBox(width: 15),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                member.name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Colors.grey[800],
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                member.role,
-                style: TextStyle(color: Colors.grey[600], fontSize: 13),
-              ),
-            ],
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-              decoration: BoxDecoration(
-                color: member.statusColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                member.status,
-                style: TextStyle(color: member.statusColor, fontSize: 12),
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              'Last scan: ${member.lastReport}',
-              style: TextStyle(color: Colors.grey[500], fontSize: 11),
-            ),
-          ],
         ),
       ],
     );
   }
 
   void _showAddFamilyMemberDialog() {
-    _nameController.clear();
-    _roleController.clear();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController roleController = TextEditingController();
 
     showDialog(
       context: context,
@@ -588,11 +696,12 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
-              controller: _nameController,
+              controller: nameController,
               decoration: const InputDecoration(labelText: 'Full Name'),
             ),
+            const SizedBox(height: 12),
             TextField(
-              controller: _roleController,
+              controller: roleController,
               decoration: const InputDecoration(labelText: 'Relation (e.g., Mother, Sister)'),
             ),
           ],
@@ -604,8 +713,8 @@ class _CommunityInsightsAppState extends State<CommunityInsightsApp> {
           ),
           ElevatedButton(
             onPressed: () {
-              final name = _nameController.text.trim();
-              final role = _roleController.text.trim();
+              final name = nameController.text.trim();
+              final role = roleController.text.trim();
 
               if (name.isNotEmpty && role.isNotEmpty) {
                 final initials = name.split(' ').map((e) => e[0]).take(2).join();

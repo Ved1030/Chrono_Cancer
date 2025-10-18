@@ -16,6 +16,7 @@ import 'package:chronocancer_ai/features/patient/pages/detailed_map_screen.dart'
 // import 'package:intl/intl.dart';
 // import 'package:chronocancer_ai/data/appointment_store.dart';
 import 'package:chronocancer_ai/core/widgets/drug_interaction_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(const HomePage());
@@ -281,15 +282,13 @@ class _HomePageContentState extends State<HomePageContent> {
             const SizedBox(height: 20),
             _buildBloodPressureCheckDue(context),
             const SizedBox(height: 20),
-            _buildCancerTypesSection(context),
+            _buildCancerTypesSection(context), // Modified section
             const SizedBox(height: 20),
             _buildHealthMonitoringSection(),
             const SizedBox(height: 20),
             _buildTopDoctorSection(context),
-       const DrugInteractionWidget(),
-    const SizedBox(height: 20),
-
-
+            const DrugInteractionWidget(),
+            const SizedBox(height: 20),
             _buildAIReportAnalyzerSection(),
             const SizedBox(height: 20),
             _buildCheckUpLocationSection(context, _currentPosition, _hospitals),
@@ -431,63 +430,144 @@ class _HomePageContentState extends State<HomePageContent> {
     );
   }
 
-  Widget _buildCancerTypesSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Types of Cancer we treat!',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            TextButton(
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CancerAwarenessPage())),
-              child: const Text('See all', style: TextStyle(color: Colors.deepPurple)),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        SizedBox(
-          height: 120,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              _buildCancerTypeCard('assets/images/transparent_brain_cancer.png'),
-              _buildCancerTypeCard('assets/images/transparent_liver_cancer.png'),
-              _buildCancerTypeCard('assets/images/transparent_lung_cancer.png'),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // MODIFIED Cancer Types Section for better UI and centered progress bar
+Widget _buildCancerTypesSection(BuildContext context) {
+  final List<Map<String, dynamic>> cancerTypes = [
+    {
+      'name': 'Brain Cancer',
+      'icon': FontAwesomeIcons.brain,
+      'risk': 0.15, // 15% risk
+      'gradientColors': [Colors.red[400]!, Colors.red[700]!],
+    },
+    {
+      'name': 'Liver Cancer',
+      'icon': FontAwesomeIcons.droplet,
+      'risk': 0.08, // 8% risk
+      'gradientColors': [Colors.orange[400]!, Colors.orange[700]!],
+    },
+    {
+      'name': 'Lung Cancer',
+      'icon': FontAwesomeIcons.lungs,
+      'risk': 0.25, // 25% risk
+      'gradientColors': [Colors.deepOrange[400]!, Colors.deepOrange[700]!],
+    },
+    {
+      'name': 'Breast Cancer',
+      'icon': FontAwesomeIcons.ribbon, // Ribbon icon for breast cancer
+      'risk': 0.12, // 12% risk
+      'gradientColors': [Colors.pink[300]!, Colors.pink[600]!],
+    },
+    {
+      'name': 'Colon Cancer',
+      'icon': FontAwesomeIcons.bandAid, // Example icon
+      'risk': 0.10, // 10% risk
+      'gradientColors': [Colors.blueGrey[300]!, Colors.blueGrey[600]!],
+    },
+  ];
 
-  Widget _buildCancerTypeCard(String imagePath) {
-    return Container(
-      width: 150,
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Cancer Risk Insights',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          TextButton(
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CancerAwarenessPage())),
+            child: const Text('See all',
+                style: TextStyle(color: Colors.deepPurple)),
           ),
         ],
       ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Image.asset(imagePath, fit: BoxFit.contain, height: 80, width: 100),
+      const SizedBox(height: 16),
+      SizedBox(
+        height: 180, // Height for the carousel cards
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: cancerTypes.length,
+          itemBuilder: (context, index) {
+            final cancer = cancerTypes[index];
+            return _buildEnhancedCancerTypeCard(
+              cancer['name'],
+              cancer['icon'], // Pass IconData now
+              cancer['risk'],
+              cancer['gradientColors'],
+            );
+          },
         ),
       ),
-    );
-  }
+    ],
+  );
+}
+
+
+Widget _buildEnhancedCancerTypeCard(
+    String name, IconData iconData, double risk, List<Color> gradientColors) {
+  return Container(
+    width: 160,
+    margin: const EdgeInsets.only(right: 16.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              CircularPercentIndicator(
+                radius: 45.0,
+                lineWidth: 7.0,
+                percent: risk,
+                linearGradient: LinearGradient(
+                  colors: gradientColors,
+                ),
+                backgroundColor: Colors.grey.withOpacity(0.2),
+                circularStrokeCap: CircularStrokeCap.round,
+              ),
+              FaIcon(
+                iconData,
+                size: 40,
+                color: gradientColors.last,
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            name,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            '${(risk * 100).toInt()}% Risk',
+            style: const TextStyle(fontSize: 12, color: Colors.black54),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
+
 
   Widget _buildHealthMonitoringSection() {
     return Row(
@@ -639,7 +719,8 @@ class _HomePageContentState extends State<HomePageContent> {
             TextButton(
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DoctorsListScreen())),
-              child: const Text('See all', style: TextStyle(color: Colors.deepPurple)),
+              child:
+                  const Text('See all', style: TextStyle(color: Colors.deepPurple)),
             ),
           ],
         ),
@@ -690,7 +771,8 @@ class _HomePageContentState extends State<HomePageContent> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('AI Report Analyzer', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const Text('AI Report Analyzer',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -711,10 +793,14 @@ class _HomePageContentState extends State<HomePageContent> {
                 const Icon(Icons.cloud_upload_outlined, size: 50, color: Colors.deepPurple),
                 const SizedBox(height: 12),
                 Text('Upload Medical Report',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.deepPurple[800])),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple[800])),
                 const SizedBox(height: 4),
                 Text('Drag & drop your reports here, or click to browse',
-                    textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 13, color: Colors.grey[600])),
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
@@ -722,10 +808,12 @@ class _HomePageContentState extends State<HomePageContent> {
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    child: const Text('Choose File', style: TextStyle(color: Colors.white)),
+                    child: const Text('Choose File',
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -741,12 +829,12 @@ class _HomePageContentState extends State<HomePageContent> {
 
   Widget _buildCheckUpLocationSection(
       BuildContext context, Position? currentPosition, List<Map<String, dynamic>> hospitals) {
-    
+
     if (_isLoadingLocation || currentPosition == null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Check-Up Location', 
+          const Text('Check-Up Location',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           Container(
@@ -773,7 +861,7 @@ class _HomePageContentState extends State<HomePageContent> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Check-Up Location', 
+        const Text('Check-Up Location',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         Container(
@@ -823,8 +911,8 @@ class _HomePageContentState extends State<HomePageContent> {
                           ],
                         ),
                         child: const Icon(
-                          Icons.my_location, 
-                          color: Colors.blue, 
+                          Icons.my_location,
+                          color: Colors.blue,
                           size: 28
                         ),
                       ),
@@ -868,7 +956,7 @@ class _HomePageContentState extends State<HomePageContent> {
                 context,
                 MaterialPageRoute(
                   builder: (_) => DetailedMapScreen(
-                    currentPosition: currentPosition, 
+                    currentPosition: currentPosition,
                     hospitals: hospitals
                   ),
                 ),
