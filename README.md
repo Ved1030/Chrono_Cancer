@@ -2,39 +2,40 @@
 
 Chrono Cancer is a smart healthcare management and cancer-support application built using Flutter (Frontend) and Python/FastAPI (Backend). It enables medical collaboration between Patients, Doctors, and ASHA Workers, while providing AI-powered medical report analysis with XAI (Explainable AI).
 
-🚀 Key Features
-👤 User Roles
+Key Features
 
-✔ Patient
+User Roles
 
-Upload medical reports (PDF / Image)
-AI-based medical report interpretation
-Health history & tracking
-Appointment booking
-View recommended doctors
-Insights powered by XAI explanations
+1.Patient
 
-✔ Doctor
+->Upload medical reports (PDF / Image)
+->AI-based medical report interpretation
+->Health history & tracking
+->Appointment booking
+->View recommended doctors
+->Insights powered by XAI explanations
 
-Access detailed patient medical reports
-View history & predictions
-Provide professional assessment & notes
-Monitoring of patient health evolution
+2.Doctor
 
-✔ ASHA Worker
+->Access detailed patient medical reports
+->View history & predictions
+->Provide professional assessment & notes
+->Monitoring of patient health evolution
 
-Community screening
-Patient onboarding & data submission
-Tracking medical schedules
-Reporting and referral assistance
+3.ASHA Worker
 
-🧠 AI Report Analyzer (Core Feature)
+->Community screening
+->Patient onboarding & data submission
+->Tracking medical schedules
+->Reporting and referral assistance
+
+AI Report Analyzer (Core Feature)
 
 Our AI model can analyze:
-✔ Medical blood reports
-✔ Pathology reports
-✔ Diagnostic images
-✔ Health summaries
+Medical blood reports
+Pathology reports
+Diagnostic images
+Health summaries
 
 It produces:
 
@@ -45,20 +46,20 @@ Recommended next steps
 
 Simple language summary for patients
 
-🔎 XAI — Explainable Artificial Intelligence
+XAI — Explainable Artificial Intelligence
 XAI ensures the AI output is transparent & understandable.
 
 Model explanations include:
 
-✔ Confidence %
-✔ Highlight of impactful biomarkers
-✔ Why a conclusion was made
-✔ Which parameters influenced classification
-✔ User-friendly medical breakdown
+Confidence %
+Highlight of impactful biomarkers
+Why a conclusion was made
+Which parameters influenced classification
+User-friendly medical breakdown
 
 This brings trust & accountability to AI in healthcare.
 
-🏗 Project Structure
+Project Structure
 chrono_cancer/
 │
 ├── Backend/             → Python / FastAPI / AI models  
@@ -77,30 +78,31 @@ chrono_cancer/
 │
 └── README.md
 
-🛠 Technologies Used
-Frontend (Flutter)
-Dart
-Firebase Authentication
-Firestore Database
-State Management (Provider / Bloc)
-Map & location services
-PDF generation
-REST API integration
-Cross-platform build (Android / iOS / Web / Windows / macOS / Linux)
-Backend (Python)
-FastAPI
-Torch / TensorFlow
-NumPy / Pandas
-scikit-learn
-XAI frameworks
-OCR text extraction
-Medical model inference logic
+Technologies Used
 
-📦 Installation / Setup
+Frontend (Flutter)
+1.Dart
+2.Firebase Authentication
+3.Firestore Database
+4.State Management (Provider / Bloc)
+5.Map & location services
+6.PDF generation
+7.REST API integration
+8.Cross-platform build (Android / iOS / Web / Windows / macOS / Linux)
+9.Backend (Python)
+10.FastAPI
+11.Torch / TensorFlow
+12.NumPy / Pandas
+13.scikit-learn
+14.XAI frameworks
+15.OCR text extraction
+16.Medical model inference logic
+
+Installation / Setup
 Clone repository
 git clone https://github.com/Ved1030/Chrono_Cancer
 
-🔧 Backend Setup
+Backend Setup
 cd Backend
 pip install -r requirements.txt
 
@@ -112,48 +114,45 @@ Run server:
 
 uvicorn api_server:app --host 0.0.0.0 --port 8000
 
-📱 Frontend Setup (Flutter)
+Frontend Setup (Flutter)
 cd Frontend
 flutter pub get
 flutter run
 
-🔐 Security
+Security
 
-✔ .env is Git-ignored
-✔ Push-protection enabled
-✔ No private API-keys in repo
-✔ Sensitive data encrypted
+.env is Git-ignored
+Push-protection enabled
+No private API-keys in repo
+Sensitive data encrypted
 
-📄 PDF Export & Sharing
+PDF Export & Sharing
 
 Patients and doctors can:
 ✔ Export AI analysis as PDF
 ✔ Share through WhatsApp / Email
 
-🩺 Goal of This Project
+Goal of This Project
 
 Early detection of cancer
 Making medical reports understandable
 Helping doctors with AI-insights
 Providing support to ASHA community workers
 
-🧑‍💻 Contributors
+Contributors
 
-👨‍💻 Virti Panchamia, Neev Patel, Param Shah, Ved Mehta – Project Developer
-🤝 Contribution requests welcome
+Virti Panchamia, Neev Patel, Param Shah, Ved Mehta – Project Developer
+Contribution requests welcome
 
-📬 Contact
+Contact
 
 For questions, collaboration or suggestions:
-📩 Email: virtipanchamia25@gmail.com
-           neevpatel2600@gmail.com
-           paramshah1906@gmail.com
-           mehtaved12@gmail.com
+Email: virtipanchamia25@gmail.com, neevpatel2600@gmail.com, paramshah1906@gmail.com, mehtaved12@gmail.com
 
-🐙 GitHub: https://github.com/Ved1030
+GitHub: https://github.com/Ved1030
 
-⭐ If you like this project
+If you like this project
 
-Please star the repo 🙌
+Please star the repo 
 
 ⭐ github.com/Ved1030/Chrono_Cancer
