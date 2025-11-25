@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pypdf2
+pytesseract
+pdf2image
+pillow
+langchain_groq
