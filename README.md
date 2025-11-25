@@ -6,28 +6,28 @@ Key Features
 
 User Roles
 
-Patient
+1.Patient
 
-Upload medical reports (PDF / Image)
-AI-based medical report interpretation
-Health history & tracking
-Appointment booking
-View recommended doctors
-Insights powered by XAI explanations
+->Upload medical reports (PDF / Image)
+->AI-based medical report interpretation
+->Health history & tracking
+->Appointment booking
+->View recommended doctors
+->Insights powered by XAI explanations
 
-Doctor
+2.Doctor
 
-Access detailed patient medical reports
-View history & predictions
-Provide professional assessment & notes
-Monitoring of patient health evolution
+->Access detailed patient medical reports
+->View history & predictions
+->Provide professional assessment & notes
+->Monitoring of patient health evolution
 
-ASHA Worker
+3.ASHA Worker
 
-Community screening
-Patient onboarding & data submission
-Tracking medical schedules
-Reporting and referral assistance
+->Community screening
+->Patient onboarding & data submission
+->Tracking medical schedules
+->Reporting and referral assistance
 
 AI Report Analyzer (Core Feature)
 
@@ -81,22 +81,22 @@ chrono_cancer/
 Technologies Used
 
 Frontend (Flutter)
-Dart
-Firebase Authentication
-Firestore Database
-State Management (Provider / Bloc)
-Map & location services
-PDF generation
-REST API integration
-Cross-platform build (Android / iOS / Web / Windows / macOS / Linux)
-Backend (Python)
-FastAPI
-Torch / TensorFlow
-NumPy / Pandas
-scikit-learn
-XAI frameworks
-OCR text extraction
-Medical model inference logic
+1.Dart
+2.Firebase Authentication
+3.Firestore Database
+4.State Management (Provider / Bloc)
+5.Map & location services
+6.PDF generation
+7.REST API integration
+8.Cross-platform build (Android / iOS / Web / Windows / macOS / Linux)
+9.Backend (Python)
+10.FastAPI
+11.Torch / TensorFlow
+12.NumPy / Pandas
+13.scikit-learn
+14.XAI frameworks
+15.OCR text extraction
+16.Medical model inference logic
 
 Installation / Setup
 Clone repository
@@ -147,10 +147,7 @@ Contribution requests welcome
 Contact
 
 For questions, collaboration or suggestions:
-Email: virtipanchamia25@gmail.com
-           neevpatel2600@gmail.com
-           paramshah1906@gmail.com
-           mehtaved12@gmail.com
+Email: virtipanchamia25@gmail.com, neevpatel2600@gmail.com, paramshah1906@gmail.com, mehtaved12@gmail.com
 
 GitHub: https://github.com/Ved1030
 
