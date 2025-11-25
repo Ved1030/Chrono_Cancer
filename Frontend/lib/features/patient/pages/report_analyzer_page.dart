@@ -93,7 +93,7 @@ class _ReportAnalyzerPageState extends State<ReportAnalyzerPage> {
     setState(() => isLoading = true);
 
     try {
-      final uri = Uri.parse("http://192.168.7.8:8000/analyze");
+      final uri = Uri.parse("http://192.168.0.131:8000/analyze");
 
       var request = http.MultipartRequest('POST', uri);
       request.files.add(await http.MultipartFile.fromPath('file', file.path));

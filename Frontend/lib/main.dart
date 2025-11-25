@@ -37,7 +37,7 @@ import 'package:flutter/material.dart';
 import 'package:chronocancer_ai/features/patient/pages/patient_data.dart';
 
 import 'package:chronocancer_ai/report_history_store.dart';
-
+import 'package:chronocancer_ai/features/patient/n8n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         // '/':(context) =>  ChatScreen(),
         // '/':(context) => const ReportAnalyzerPage(),
         '/':(context) => const SplashPage(),
-        
+        //'/':(context) => TestPage(), 
         '/consentPage':(context) => const PrivacyConsentScreen(),
         //'/loginPage':(context) => const LoginPage(role: role),
         '/onboarding1':(context) => const Onboarding1(),
